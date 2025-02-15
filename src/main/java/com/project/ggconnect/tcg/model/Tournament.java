@@ -2,8 +2,13 @@ package com.project.ggconnect.tcg.model;
 
 import java.util.List;
 
+import com.project.ggconnect.tcg.model.enums.TournamentFormat;
+import com.project.ggconnect.tcg.model.enums.TournamentStatus;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,8 +33,12 @@ public class Tournament {
     private Long id;
 
     private String name;
-    private String format;
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    private TournamentFormat format;
+    
+    @Enumerated(EnumType.STRING)
+    private TournamentStatus status;
 
     @ManyToOne
     @JoinColumn(name = "organizer_id")

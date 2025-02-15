@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.project.ggconnect.tcg.model.Role;
+import com.project.ggconnect.tcg.model.enums.Role;
 import com.project.ggconnect.tcg.security.SecurityFilter;
 
 import lombok.RequiredArgsConstructor;
