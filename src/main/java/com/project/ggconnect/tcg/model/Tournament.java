@@ -1,7 +1,9 @@
 package com.project.ggconnect.tcg.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.project.ggconnect.tcg.model.enums.TournamentFormat;
 import com.project.ggconnect.tcg.model.enums.TournamentStatus;
 
@@ -40,10 +42,19 @@ public class Tournament {
     @Enumerated(EnumType.STRING)
     private TournamentStatus status;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "organizer_id")
     private User organizer;
 
     @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Match> matches;
+
+    public Tournament(String name, TournamentFormat format, User organizer) {
+        this.name = name;
+        this.format = format;
+        this.status = TournamentStatus.CREATED;
+        this.organizer = organizer;
+        this.matches = new ArrayList<>();
+    }
 }

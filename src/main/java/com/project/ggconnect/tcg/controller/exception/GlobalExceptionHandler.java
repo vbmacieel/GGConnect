@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.project.ggconnect.tcg.exception.EmailAlreadyExistsException;
+import com.project.ggconnect.tcg.exception.InvalidArgumentException;
 import com.project.ggconnect.tcg.exception.InvalidPasswordException;
 import com.project.ggconnect.tcg.exception.UserNotFoundException;
 
@@ -42,5 +43,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidPasswordException.class)
     public ResponseEntity<String> handleInvalidPasswordException(InvalidPasswordException exception) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(InvalidArgumentException.class)
+    public ResponseEntity<String> handleInvalidArgumentException(InvalidArgumentException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 }
