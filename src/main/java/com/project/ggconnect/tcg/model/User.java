@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.ggconnect.tcg.model.enums.Role;
 
 import jakarta.persistence.Entity;
@@ -39,6 +40,7 @@ public class User implements UserDetails {
 
     private int elo;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "organizer")
     private List<Tournament> tournaments;
 
