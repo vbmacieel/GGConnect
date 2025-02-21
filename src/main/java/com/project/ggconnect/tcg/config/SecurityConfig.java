@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.project.ggconnect.tcg.model.enums.Role;
 import com.project.ggconnect.tcg.security.SecurityFilter;
 
 import lombok.RequiredArgsConstructor;
@@ -32,12 +31,6 @@ public class SecurityConfig {
             "/matches"
     };
 
-    public static final String[] ENDPOINTS_ONLY_ADMIN_ACCESS = {
-        "/tournaments/create",
-        "/matches/create",
-        "/matches/update"
-    };
-
     private final SecurityFilter filter;
 
     @Bean
@@ -47,7 +40,6 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
-                        .requestMatchers(ENDPOINTS_ONLY_ADMIN_ACCESS).hasRole(Role.ADMIN.toString())
                         .anyRequest().authenticated())
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 
