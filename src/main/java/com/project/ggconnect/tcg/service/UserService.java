@@ -47,4 +47,11 @@ public class UserService {
         return new AuthResponseDTO(token, user.getUsername());
     }
 
+    public void checkIfUserExists(Long id) {
+        if (!repository.existsById(id)) throw new UserNotFoundException("User not found!");
+    }
+
+    public User findUserById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found!"));
+    }
 }
