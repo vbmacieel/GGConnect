@@ -26,8 +26,7 @@ public class TournamentService {
     }
 
     public TournamentResponseDTO findTournamentById(Long id) {
-        Tournament tournament = tournamentRepository.findById(id)
-                .orElseThrow(() -> new InvalidArgumentException("No tournaments found with this id!"));
+        Tournament tournament = findTournamentEntityById(id);
 
         return TournamentMapper.toDto(tournament, tournament.getOrganizer());
     }
@@ -47,9 +46,7 @@ public class TournamentService {
     }
 
     public TournamentResponseDTO updateTournament(Long id, TournamentRequestDTO dto) {
-        Tournament tournament = tournamentRepository.findById(id)
-                .orElseThrow(() -> new InvalidArgumentException("No tournaments found with this id!"));
-
+        Tournament tournament = findTournamentEntityById(id);
         Tournament tournamentUpdated = TournamentMapper.toEntity(dto, tournament.getOrganizer());
         tournamentUpdated.setId(tournament.getId());
 
@@ -58,9 +55,13 @@ public class TournamentService {
     }
 
     public void deleteTournament(Long id) {
-        Tournament tournament = tournamentRepository.findById(id)
-                .orElseThrow(() -> new InvalidArgumentException("No tournaments found with this id!"));
+        Tournament tournament = findTournamentEntityById(id);
 
         tournamentRepository.delete(tournament);
+    }
+    
+    public Tournament findTournamentEntityById(Long tournamentId) {
+        return tournamentRepository.findById(tournamentId)
+                .orElseThrow(() -> new InvalidArgumentException("No tournaments found with this id!"));
     }
 }
